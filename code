@@ -1,0 +1,160 @@
+#include <SoftwareSerial.h>
+#include<Servo.h>
+#include<LiquidCrystal_I2C.h>
+
+SoftwareSerial mySerial(6, 7); // RX, TX
+LiquidCrystal_I2C lcd(0x27,16,2);
+int p=2;
+int echo =9;
+int trig = 10;
+int echo1=3;
+int trig1=4;
+long distance;
+long user;
+int nb1=1;
+int nb2=1;
+int pinled=2;
+Servo servo;
+
+void setup()
+{
+  
+  pinMode(p,OUTPUT);
+  pinMode(trig,OUTPUT);
+  pinMode(echo,INPUT);
+  pinMode(trig1,OUTPUT);
+  pinMode(echo1,INPUT);
+  Serial.begin(9600);
+  mySerial.begin(38400);
+  lcd.begin();
+  servo.attach(11);
+  pinMode(pinled,OUTPUT);
+  servo.write(0);
+  
+}
+
+
+void loop() // run over and over
+{
+ 
+  // OBTENIR LA DISTANCE VIDE DANS LA POUBELLE
+  digitalWrite(trig,LOW);
+  delayMicroseconds(2);
+  digitalWrite(trig,HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trig,LOW);
+  distance=pulseIn(echo,HIGH)/58;
+  Serial.println("distance : "+distance);
+  
+  
+  // Return true or false
+  
+  
+
+  
+  // Vérifier si il y'en a des utilisateurs.
+  
+    digitalWrite(trig1,LOW);
+    delayMicroseconds(2);
+    digitalWrite(trig1,HIGH);
+    delayMicroseconds(10);
+    digitalWrite(trig1,LOW);
+    user=pulseIn(echo1,HIGH)/58;
+    Serial.println("distance1 : "+user);
+    digitalWrite(pinled,LOW);
+    
+    if(user<20 && distance<=3){
+       
+       servo.write(0); 
+       digitalWrite(pinled,HIGH);
+       lcd.clear();
+       lcd.print("Utilisez une");
+       lcd.setCursor(0,1);
+       lcd.print("Autre poubelle");
+       }
+     
+     if(user<20 && distance >3) {
+      Serial.println(distance);
+      Serial.println(user);
+      lcd.clear(); 
+      servo.write(160);
+      digitalWrite(pinled,LOW);
+      lcd.print("Mettez vos ");
+      lcd.setCursor(0,1);
+      lcd.print("   déchets iCi !!");
+      delay(3003);
+      lcd.clear();
+      lcd.print("    Merci ! ");
+      delay(500);
+      servo.write(0);
+      
+     }  
+     if(user>=20 && distance>3) {
+      
+      servo.write(0);
+      lcd.clear();
+      lcd.print("Bonjour ");
+      lcd.setCursor(0,1);
+      lcd.print("Utilisez-moi");
+      delay(100);
+      lcd.print(" >");
+      delay(100);
+      lcd.clear();
+      delay(100);
+      digitalWrite(pinled,LOW);
+    }
+    if(user>=20 && distance<=3){
+      
+        lcd.clear();
+       lcd.print("La poubelle");
+       lcd.setCursor(0,1);
+       lcd.print("   EST PLEINE  ");
+       digitalWrite(pinled,LOW);
+      }
+       
+       if(distance<=3 && nb1==1){
+       mySerial.println("La Poubelle est pleine");
+       //digitalWrite(p,HIGH);
+       nb1=2;
+       nb2=1;
+       ;
+       }
+      
+  
+     
+     if(distance>3 && nb2==1){
+      mySerial.println("La Poubelle n'est pas encore pleine");
+      //digitalWrite(p,LOW);
+      nb1=1;
+      nb2=2;
+      
+      }
+     
+    delay(100);
+    }
+
+
+    
+/*boolean Poubelle(long distance , int nb1, int nb2){
+  
+  if (distance<=3 && nb1==1){
+      mySerial.println("La Poubelle est pleine");
+      //digitalWrite(p,HIGH);
+      nb1=2;
+      nb2=1;
+      return true;
+    }
+    
+  else if (distance>3 && nb2==1){
+      mySerial.println("La Poubelle n'est pas encore vide");
+      //digitalWrite(p,LOW);
+      nb1=1;
+      nb2=2;
+      return false;
+      
+    }
+  */
+
+   
+   
+  
