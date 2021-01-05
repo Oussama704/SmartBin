@@ -16,16 +16,16 @@ LES COMPOSANTS UTILISEES
 ## Capteur à Ultarson 
 
 ## Modélisation
-## Poubele Vide envoie message au serveur " La poubelle est vide "
-## Affiche un message au utilisateur " Utilisez Moi "
+<h4>Poubele Vide envoie message au serveur " La poubelle est vide "</h4>
+<h4> Affiche un message au utilisateur " Utilisez Moi "</h4>
 <img src="https://github.com/Oussama704/images/blob/main/b1.jpg" height="600px" width="600px">
-## L'utilisateur met sa main devant pour ouvrir la poubelle
+<h4> L'utilisateur met sa main devant pour ouvrir la poubelle </h4>
 <img src="https://github.com/Oussama704/images/blob/main/b2.jpg" height="600px" width="600px">
-## La poubelle s'ouvre.
+<h4>La poubelle s'ouvre.</h4>
 <img src="https://github.com/Oussama704/images/blob/main/b3.jpg" height="600px" width="600px">
-## Remplir la poubelle.
+<h4>Remplir la poubelle.</h4>
 <img src="https://github.com/Oussama704/images/blob/main/b4.jpg" height="600px" width="600px">
-## La poubelle ne s'ouvre plus 
-## Envoie un message au serveur " La poubelle est pleine "
-## Affiche un message au utilisateur " Utilisez une autre "
+<h4>La poubelle ne s'ouvre plus </h4>
+<h4>Envoie un message au serveur " La poubelle est pleine "</h4>
+<h4>Affiche un message au utilisateur " Utilisez une autre "</h4>
 <img src="https://github.com/Oussama704/images/blob/main/b5.jpg" height="600px" width="600px">
